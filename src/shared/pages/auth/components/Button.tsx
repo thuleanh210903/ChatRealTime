@@ -14,7 +14,7 @@ export const Button: React.FC<IButtonProps> = ({
   className = '',
   isDisabled = false,
   isLoading = false,
-  type = 'button',
+  type = 'submit',
   label = '',
   onClick,
   children,
