@@ -41,7 +41,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
             ref={ref}
             name={name}
             placeholder={placeHolder}
-            className={className}
+            className={`input ${className}`}
             type={type}
             value={value}
             onChange={(e) => {
