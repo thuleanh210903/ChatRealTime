@@ -1,0 +1,47 @@
+@use '../base/' as *;
+
+.page-auth {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/public/images/background-register.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .page-content {
+    width: 40%;
+    border-radius: $border-radius-lg;
+    padding: 50px 70px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px 0 rgba(229, 230, 244, 0.7);
+
+    @media screen and (max-width: $ml) {
+      width: 60%;
+      padding: 50px;
+    }
+  }
+
+  .page-title {
+    margin: 0;
+    font-size: $font-size-lg;
+    padding-bottom: 30px;
+  }
+
+  .page-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .page-link {
+    color: $color-grey;
+    font-size: $font-size-xs;
+    padding-top: 8px;
+    text-align: right;
+  }
+}

@@ -1,20 +1,29 @@
 // colors
 $color-primary: #ffffff;
-$color-secondary: #27ae60;
-$color-grey: #eeeeee;
+$color-secondary: #835adc;
+$color-grey-light: #eeeeee;
+$color-black: #343434;
+$color-grey: #787878;
+$color-grey-dark: #575757;
 
 // font size
 $font-size-xs: 12px;
 $font-size-sm: 14px;
 $font-size-base: 16px;
 $font-size-md: 18px;
+$font-size-lg: 32px;
 
 // font weight
 $font-weight-bold: 600;
 $font-weight-semi: 500;
 $font-weight-base: 400;
 
+// border-radius
+$border-radius-base: 6px;
+$border-radius-lg: 20px;
+
 // breakpoints
 $sm: 576px;
 $md: 768px;
+$ml: 1024px;
 $lg: 1280px;
