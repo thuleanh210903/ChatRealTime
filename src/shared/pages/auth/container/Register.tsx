@@ -1,21 +1,23 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { register } from '../../../../services/auth.service';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
-import React, { useState } from 'react';
-import { register } from '../../../../services/auth.service';
-import { toast } from 'react-toastify';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
     try {
-      await register(email, password);
+      await register(email, password, fullName);
       toast.success('Register successfully');
-      alert('hi');
+      navigate('/auth/login');
     } catch (err) {
       console.log(err);
     }
@@ -25,6 +27,12 @@ const Register = () => {
       <div className="page-content">
         <h1 className="page-title">REGISTER</h1>
         <form className="page-form" onSubmit={handleSubmit}>
+          <Input
+            label="Full Name"
+            placeHolder="Tom Ridard"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
           <Input
             label="Email"
             placeHolder="user@gmail.com"
