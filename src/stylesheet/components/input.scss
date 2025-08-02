@@ -1,0 +1,62 @@
+@use '../base/' as *;
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.form-label {
+  color: $color-black;
+  font-size: $font-size-sm;
+}
+
+.form-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: $color-grey;
+  font-size: $font-size-xs;
+  padding: 12px;
+  border-radius: $border-radius-base;
+  border: 1px solid $color-grey-dark;
+
+  &:focus-within {
+    border-color: $color-secondary;
+  }
+  .input {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 10px 12px 6px 12px;
+    font-size: $font-size-xs;
+    color: $color-grey;
+    width: 100%;
+    &:focus {
+      background: none;
+      border: none;
+    }
+  }
+  .floating-label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-grey-dark;
+    font-size: $font-size-xs;
+    transition: 0.2s ease all;
+    pointer-events: none;
+    padding: 0 4px;
+    z-index: 1;
+  }
+  .input:focus + .floating-label,
+  .input:not(:placeholder-shown) + .floating-label,
+  .input:not(:focus):not(:placeholder-shown) + .floating-label {
+    top: 0;
+    transform: translateY(-50%) translateY(-10%);
+    font-size: 11px;
+    color: $color-secondary;
+    padding: 0 4px;
+  }
+}
