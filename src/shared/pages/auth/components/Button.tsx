@@ -26,7 +26,7 @@ export const Button: React.FC<IButtonProps> = ({
       onClick={onClick}
       disabled={isDisabled}
     >
-      {label}
+      {isLoading ? <span className='spinner'></span> : label || children}
     </button>
   );
 };
