@@ -1,0 +1,43 @@
+@use '../base/' as *;
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form-msg {
+  position: absolute;
+  top: 100%;
+  left: 12px;
+  background-color: $color-red;
+  color: white;
+  font-size: $font-size-xs;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+  white-space: nowrap;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 10px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent $color-red transparent;
+  }
+}

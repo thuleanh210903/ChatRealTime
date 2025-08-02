@@ -24,6 +24,8 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
       onChange,
       value,
       errorMessage,
+      onBlur,
+      onKeyDown,
     },
     ref
   ) => {
@@ -35,12 +37,11 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
 
     return (
       <div className="form-control">
-        {label && <label className="form-label">{label}</label>}
         <div className="form-input">
           <input
             ref={ref}
             name={name}
-            placeholder={placeHolder}
+            placeholder=""
             className={`input ${className}`}
             type={type}
             value={value}
@@ -48,9 +49,12 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
               if (onChange) onChange(e);
               setHasValue(!!e.target.value);
             }}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
           />
+          {label && <label className={`floating-label`}>{label}</label>}
+          {errorMessage && <div className="form-msg">{errorMessage}</div>}
         </div>
-        {errorMessage && <p className="form-msg">{errorMessage}</p>}
       </div>
     );
   }

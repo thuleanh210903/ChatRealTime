@@ -4,11 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import '../src/stylesheet/styles.scss';
 import App from './App.tsx';
+import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
+    <ToastContainer />
   </StrictMode>
 );
