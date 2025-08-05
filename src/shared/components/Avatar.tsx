@@ -1,5 +1,5 @@
 interface IAvatar {
-  className: string;
+  className?: string;
 }
 
 export const Avatar: React.FC<IAvatar> = ({ className }) => {
