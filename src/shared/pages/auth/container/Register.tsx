@@ -39,7 +39,10 @@ const Register = () => {
   const onSubmit = async (data: IRegisterForm) => {
     try {
       setIsLoading(true);
-      await register(data.email, data.password, data.fullName);
+      const payload = {
+        ...data,
+      };
+      await register(payload);
       toast.success('Register successfully');
       navigate('/auth/login');
     } catch (err) {
@@ -52,6 +55,7 @@ const Register = () => {
       setIsLoading(false);
     }
   };
+  
   return (
     <div className="page page-auth page-register">
       <div className="page-content">
