@@ -1,8 +1,10 @@
-import type React from 'react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useUser } from '../../../../context/UserProvider';
+import { login } from '../../../../services/auth.service';
 import { Button } from '../components/Button';
-import { Link } from 'react-router-dom';
 import { Input } from '../components/Input';
 
 interface ILoginProps {
@@ -11,6 +13,8 @@ interface ILoginProps {
 }
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const {
     control,
@@ -20,7 +24,27 @@ const Login = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: ILoginProps) => {
+    try {
+      setIsLoading(true);
+
+      const response = await login(data);
+
+      if (response.success && response.user) {
+        setUser(response.user);
+        toast.success('Login successfully');
+        navigate('/');
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error('Register failed');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="page page-auth page-login">
