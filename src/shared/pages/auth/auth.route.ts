@@ -10,6 +10,7 @@ const authRoutes: PageRoute[] = [
   {
     path: AppRoutes.AUTH,
     element: Auth,
+    isPublic: true,
     children: [
       {
         path: AppRoutes.REGISTER,
