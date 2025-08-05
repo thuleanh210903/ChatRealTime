@@ -5,9 +5,11 @@ const Home = () => {
   return (
     <div className="page page-home">
       <Sidebar />
-      <div className="">
+      <div className="main">
         <Header />
-        <main></main>
+        <main>
+          <div className="container"></div>
+        </main>
       </div>
     </div>
   );

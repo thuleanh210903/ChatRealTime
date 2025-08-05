@@ -1,4 +1,5 @@
 import { Avatar } from '../components/Avatar';
+import { ListUser } from '../components/ListUser';
 import { SearchBar } from '../components/SearchBar';
 import { UserCard } from '../components/UserCard';
 
@@ -12,11 +13,7 @@ export const Sidebar = () => {
       <div className="sidebar-util">
         <SearchBar />
       </div>
-      <ul className="list-users">
-        <li className="list-item">
-          <UserCard />
-        </li>
-      </ul>
+      <ListUser />
     </aside>
   );
 };

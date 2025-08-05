@@ -1,0 +1,10 @@
+@use '../base/' as *;
+
+.page {
+  max-width: 1427px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 13px;
+  display: flex;
+  flex-direction: row;
+}
