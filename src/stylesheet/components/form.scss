@@ -1,0 +1,26 @@
+@use '../base/' as *;
+
+.form {
+  &-upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: auto;
+  }
+  &-preview {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border: 2px dashed $color-black;
+    border-radius: 50%;
+
+    overflow: hidden;
+    img {
+      border-radius: 50%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

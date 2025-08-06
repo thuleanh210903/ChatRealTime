@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { register } from '../../../../services/auth.service';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
+import { UploadImage } from '../../../components/UploadImage';
 
 interface IRegisterForm {
   fullName: string;
@@ -55,12 +56,13 @@ const Register = () => {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <div className="page page-auth page-register">
       <div className="page-content">
         <h1 className="page-title">REGISTER</h1>
         <form className="page-form" onSubmit={handleSubmit(onSubmit)}>
+          <UploadImage />
           <Controller
             control={control}
             name="fullName"
