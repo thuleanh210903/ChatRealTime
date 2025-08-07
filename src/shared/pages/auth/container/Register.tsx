@@ -14,6 +14,7 @@ interface IRegisterForm {
   fullName: string;
   email: string;
   password: string;
+  avatarUrl?: File;
 }
 
 const schema = yup.object().shape({
@@ -27,6 +28,7 @@ const schema = yup.object().shape({
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   const {
     control,
@@ -39,9 +41,14 @@ const Register = () => {
 
   const onSubmit = async (data: IRegisterForm) => {
     try {
+      if (!avatarFile) {
+        toast.error('Please upload an avatar');
+        return;
+      }
       setIsLoading(true);
       const payload = {
         ...data,
+        avatarFile,
       };
       await register(payload);
       toast.success('Register successfully');
@@ -62,7 +69,10 @@ const Register = () => {
       <div className="page-content">
         <h1 className="page-title">REGISTER</h1>
         <form className="page-form" onSubmit={handleSubmit(onSubmit)}>
-          <UploadImage />
+          <UploadImage
+            defaultImage=""
+            onChange={(file) => setAvatarFile(file)}
+          />
           <Controller
             control={control}
             name="fullName"

@@ -1,7 +1,6 @@
 import { Avatar } from '../components/Avatar';
 import { ListUser } from '../components/ListUser';
 import { SearchBar } from '../components/SearchBar';
-import { UserCard } from '../components/UserCard';
 
 export const Sidebar = () => {
   return (
