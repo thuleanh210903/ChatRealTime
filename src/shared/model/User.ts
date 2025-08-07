@@ -4,6 +4,7 @@ export class User {
   email: string;
   isOnline: boolean;
   lastActive: Date;
+  avatarUrl: string;
 
   constructor({
     uid,
@@ -11,18 +12,21 @@ export class User {
     email,
     isOnline = false,
     lastActive = new Date(),
+    avatarUrl,
   }: {
     uid: string;
     fullName: string;
     email: string;
     isOnline?: boolean;
     lastActive?: Date;
+    avatarUrl: string;
   }) {
     this.uid = uid;
     this.fullName = fullName;
     this.email = email;
     this.isOnline = isOnline;
     this.lastActive = lastActive;
+    this.avatarUrl = avatarUrl;
   }
 
   toFirestoreObject() {
@@ -32,6 +36,7 @@ export class User {
       email: this.email,
       isOnline: this.isOnline,
       lastActive: this.lastActive,
+      avatarUrl: this.avatarUrl,
     };
   }
 }
