@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import {
+  getDataFromLocalStorage,
   KEYS,
   removeDataFromLocalStorage,
   setDataToLocalStorage,
@@ -14,11 +15,13 @@ export interface User {
 interface UserContextType {
   user: User | null;
   setUser: (user: User | null) => void;
+  isAuthenticated: boolean;
 }
 
 const UserContext = createContext<UserContextType>({
   user: null,
   setUser: () => {},
+  isAuthenticated: false,
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -40,8 +43,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const isAuthenticated = Boolean(
+    getDataFromLocalStorage(KEYS.USER_SESSION, null)
+  );
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isAuthenticated }}>
       {children}
     </UserContext.Provider>
   );
