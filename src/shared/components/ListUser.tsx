@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { UserCard } from './UserCard';
 import type { User } from '../model/User';
 import { getAllUserExceptCurrent } from '../../services/user.service';
 import { useUser } from '../../context/UserProvider';
 
-export const ListUser = () => {
+interface IListUser {
+  searchKey?: string;
+}
+
+export const ListUser: React.FC<IListUser> = ({ searchKey }) => {
   const [users, setUsers] = useState<User[]>([]);
   const { user } = useUser();
 
@@ -18,11 +22,19 @@ export const ListUser = () => {
 
     fetchUsers();
   }, [user?.uid]);
+
+  const filteredUsers = useMemo(() => {
+    if (!searchKey?.trim()) return users;
+    return users.filter((user) =>
+      user.fullName.toLowerCase().includes(searchKey.toLowerCase())
+    );
+  }, [users, searchKey]);
+
   return (
     <ul className="list-users">
-      {users?.map((user) => (
-        <li className="list-item">
-          <UserCard key={user?.uid} user={user} />
+      {filteredUsers?.map((user) => (
+        <li className="list-item" key={user?.uid}>
+          <UserCard user={user} />
         </li>
       ))}
     </ul>
