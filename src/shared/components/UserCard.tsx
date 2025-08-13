@@ -1,16 +1,20 @@
-export const UserCard = () => {
+import type React from 'react';
+import type { User } from '../model/User';
+import { Avatar } from './Avatar';
+
+interface IUserCard {
+  user: User;
+}
+
+export const UserCard: React.FC<IUserCard> = ({ user }) => {
   return (
     <div className="card">
       <div className="card-left">
         <div className="card-image avatar">
-          <img
-            className="avatar-image"
-            alt="avatar"
-            src="../../../public/images/avatar.jpg"
-          />
+          <Avatar avatarUrl={user.avatarUrl} status={user.isOnline} />
         </div>
         <div className="card-content">
-          <h2 className="card-title">John Doe</h2>
+          <h2 className="card-title">{user.fullName}</h2>
           <p className="card-desc">How are you doing ?</p>
         </div>
       </div>
