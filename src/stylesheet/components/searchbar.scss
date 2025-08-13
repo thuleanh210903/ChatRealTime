@@ -1,0 +1,25 @@
+@use '../base/' as *;
+
+.search {
+  &-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 12px;
+    border-radius: $border-radius-base;
+    background-color: $color-grey-light;
+  }
+
+  &-image {
+    width: 20px;
+    height: 20px;
+  }
+  &-input {
+    font-size: $font-size-sm;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    color: $color-grey-dark;
+  }
+}

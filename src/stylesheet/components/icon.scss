@@ -1,0 +1,10 @@
+@use '../base/' as *;
+
+.icon {
+  width: 20px;
+  height: 20px;
+
+  .icon-action:hover {
+    cursor: pointer;
+  }
+}
