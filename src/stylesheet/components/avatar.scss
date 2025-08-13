@@ -1,0 +1,18 @@
+@use '../base/' as *;
+
+.avatar {
+  width: 36px;
+  height: 36px;
+
+  &-xl {
+    width: 42px;
+    height: 42px;
+  }
+
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}

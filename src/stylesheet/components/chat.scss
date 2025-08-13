@@ -1,0 +1,30 @@
+@use '../base/' as *;
+
+.chat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  padding: 10px;
+  color: $color-black;
+  border-top: 1px solid $color-grey-light;
+  &-icon {
+    display: flex;
+    gap: 10px;
+    position: relative;
+  }
+
+  &-input {
+    outline: none;
+    padding: 10px 12px;
+    flex: 1;
+    border: none;
+  }
+  .emoji-picker {
+    position: absolute;
+    bottom: 100%;
+    right: 40px;
+    z-index: 999;
+  }
+}

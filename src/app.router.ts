@@ -1,6 +1,6 @@
 import type { PageRoute } from './core/router/router.interface';
 import authRoutes from './shared/pages/auth/auth.route';
-import homeRoutes from './shared/pages/home/home.route';
+import pageRoutes from './shared/pages/page.routes';
 
-const appRouter: PageRoute[] = [...authRoutes, ...homeRoutes];
+const appRouter: PageRoute[] = [...authRoutes, ...pageRoutes];
 export default appRouter;

@@ -1,0 +1,14 @@
+@use '../base/' as *;
+.main {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.chat-frame {
+  height: calc(100vh - 127px);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
