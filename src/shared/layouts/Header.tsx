@@ -1,18 +1,24 @@
+// components/Header.tsx
 import type React from 'react';
 import { Avatar } from '../components/Avatar';
-import type { User } from '../model/User';
+import type { ChatTarget } from '../../types/ChatTarget';
 
 interface IHeader {
-  user?: User | null;
+  target?: ChatTarget | null;
 }
-export const Header: React.FC<IHeader> = ({ user }) => {
+
+export const Header: React.FC<IHeader> = ({ target }) => {
+  const isGroup = target?.isGroup === true;
+
   return (
     <header className="header">
       <div className="container">
-        <Avatar className="avatar-xl" avatarUrl={user?.avatarUrl} />
+        <Avatar className="avatar-xl" avatarUrl={target?.avatarUrl} />
         <div className="header-text">
-          <h2 className="header-title">{user?.fullName}</h2>
-          <p className="header-subtitle">Online</p>
+          <h2 className="header-title">
+            {isGroup ? target?.name : target?.fullName}
+          </h2>
+          <p className="header-subtitle">{isGroup ? 'Group Chat' : 'Online'}</p>
         </div>
       </div>
     </header>

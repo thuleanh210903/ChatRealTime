@@ -1,6 +1,7 @@
 export interface Conversation {
-  id: string; 
-  participants: string[]; 
-  lastMessage?: string;
-  lastMessageTime?: Date;
+  id: string;
+  name?: string;
+  avatarUrl?: string;
+  isGroup?: boolean;
+  members?: string[];
 }

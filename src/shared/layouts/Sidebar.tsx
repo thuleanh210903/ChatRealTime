@@ -59,7 +59,7 @@ export const Sidebar = ({
               onClick={() =>
                 onTargetSelect({
                   id: group.id,
-                  displayName: group.name,
+                  name: group.name,
                   avatarUrl: group.avatarUrl,
                   isGroup: true,
                 } as any)
