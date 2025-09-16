@@ -3,6 +3,7 @@ import { useUser } from '../../context/UserProvider';
 import { getAllUserExceptCurrent } from '../../services/user.service';
 import type { User } from '../model/User';
 import { UserCard } from './UserCard';
+import { getConversationId } from '../../services/chat.service';
 
 interface IListUser {
   searchKey?: string;
@@ -33,15 +34,17 @@ export const ListUser: React.FC<IListUser> = ({ searchKey, onSelect }) => {
 
   return (
     <ul className="list-users">
-      {filteredUsers?.map((user) => (
-        <li
-          className="list-item"
-          key={user?.uid}
-          onClick={() => onSelect(user)}
-        >
-          <UserCard user={user} />
-        </li>
-      ))}
+      {filteredUsers?.map(
+        (u) =>
+          user?.uid && (
+            <li className="list-item" key={u?.uid} onClick={() => onSelect(u)}>
+              <UserCard
+                user={u}
+                conversationId={getConversationId(user.uid, u.uid)}
+              />
+            </li>
+          )
+      )}
     </ul>
   );
 };

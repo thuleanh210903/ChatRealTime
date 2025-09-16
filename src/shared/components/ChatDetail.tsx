@@ -25,11 +25,11 @@ export const ChatDetail: React.FC<IChatDetail> = ({ message, isOwn }) => {
           <Avatar
             avatarUrl={message.sender?.avatarUrl || '/default-avatar.png'}
           />
-          {message.sender?.fullName && (
+          {/* {message.sender?.fullName && (
             <span style={{ fontSize: '12px', marginTop: '2px' }}>
               {message.sender.fullName}
             </span>
-          )}
+          )} */}
         </div>
       )}
 

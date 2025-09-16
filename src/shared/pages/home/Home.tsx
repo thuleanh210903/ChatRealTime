@@ -6,13 +6,16 @@ import type { ChatMessage } from '../../model/ChatMessage';
 import type { User } from '../../model/User';
 import { useUser } from '../../../context/UserProvider';
 import { useOutletContext } from 'react-router-dom';
+import type { Conversation } from '../../model/Conversation';
+
+type ChatTarget = User | (Conversation & { isGroup: true });
 
 interface OutletContextType {
-  selectedUser: User | null;
+  selectedTarget: ChatTarget | null;
 }
 
 const Home = () => {
-  const { selectedUser } = useOutletContext<OutletContextType>();
+  const { selectedTarget } = useOutletContext<OutletContextType>();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { user } = useUser();
 
@@ -24,12 +27,12 @@ const Home = () => {
             key={msg.id}
             message={msg}
             isOwn={msg.senderId === user?.uid}
-            otherUserAvatar={selectedUser?.avatarUrl}
+            otherUserAvatar={selectedTarget?.avatarUrl}
           />
         ))}
       </div>
 
-      <Chat selectedUser={selectedUser} onMessagesUpdate={setMessages} />
+      <Chat selectedTarget={selectedTarget} onMessagesUpdate={setMessages} />
     </div>
   );
 };

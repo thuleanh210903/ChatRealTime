@@ -3,16 +3,20 @@ import { Header } from '../layouts/Header';
 import { Sidebar } from '../layouts/Sidebar';
 import { useState } from 'react';
 import type { User } from '../model/User';
+import type { Conversation } from '../model/Conversation';
 
 const Page = () => {
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  type ChatTarget = User | (Conversation & { isGroup: true });
+
+  const [selectedTarget, setSelectedTarget] = useState<ChatTarget | null>(null);
+
   return (
     <div className="page page-home">
-      <Sidebar onUserSelect={setSelectedUser} />
+      <Sidebar onTargetSelect={setSelectedTarget} />
       <div className="wrapper">
-        <Header user={selectedUser} />
+        <Header target={selectedTarget} />
         <main className="main">
-          <Outlet context={{ selectedUser }} />
+          <Outlet context={{ selectedTarget }} />
         </main>
       </div>
     </div>
