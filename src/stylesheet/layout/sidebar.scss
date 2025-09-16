@@ -14,3 +14,39 @@
     width: 100%;
   }
 }
+
+.sidebar-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn-create-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(213, 211, 211);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($color-primary, 50%);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.sidebar-action {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

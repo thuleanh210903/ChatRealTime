@@ -32,13 +32,15 @@ export const Sidebar = ({
     <aside className="sidebar">
       <div className="sidebar-header">
         <h1>Message</h1>
-        <button
-          className="btn-create-group"
-          onClick={() => setIsModalOpen(true)}
-        >
-          <FiUsers size={24} />
-        </button>
-        <Avatar avatarUrl={user?.avatarUrl} />
+        <div className="sidebar-action">
+          <button
+            className="btn-create-group"
+            onClick={() => setIsModalOpen(true)}
+          >
+            <FiUsers size={24} />
+          </button>
+          <Avatar avatarUrl={user?.avatarUrl} />
+        </div>
       </div>
       <div className="sidebar-util">
         <SearchBar value={keySearch} onChange={setKeySearch} />
