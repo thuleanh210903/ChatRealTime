@@ -10,6 +10,9 @@ export interface User {
   uid: string;
   email: string;
   fullName: string;
+  avatarUrl?: string;
+  isOnline?: boolean;
+  lastActive?: Date | null;
 }
 
 interface UserContextType {
