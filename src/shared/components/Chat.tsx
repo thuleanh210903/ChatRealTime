@@ -1,53 +1,74 @@
-import sendIcon from '../../../public/send.svg';
-import linkIcon from '../../../public/link.svg';
-import stickerIcon from '../../../public/emoji.svg';
 import EmojiPicker from 'emoji-picker-react';
-import { useEffect, useReducer, useRef, useState } from 'react';
-import type { ChatMessage } from '../model/ChatMessage';
+import { useEffect, useRef, useState } from 'react';
+import stickerIcon from '../../../public/emoji.svg';
+import linkIcon from '../../../public/link.svg';
+import sendIcon from '../../../public/send.svg';
 import { useUser } from '../../context/UserProvider';
 import {
   getConversationId,
   listenMessages,
   sendMessage,
 } from '../../services/chat.service';
-import type { User } from '../model/User';
 import { uploadImage } from '../../services/image.service';
+import type { ChatMessage } from '../model/ChatMessage';
+import type { Conversation } from '../model/Conversation';
+import type { User } from '../model/User';
+
+type ChatTarget =
+  | (User & { isGroup?: false })
+  | (Conversation & { isGroup: true });
 
 interface ChatProps {
-  selectedUser: User | null;
+  selectedTarget: ChatTarget | null;
   onMessagesUpdate: (msgs: ChatMessage[]) => void;
 }
 
-export const Chat = ({ selectedUser, onMessagesUpdate }: ChatProps) => {
+export const Chat = ({ selectedTarget, onMessagesUpdate }: ChatProps) => {
   const { user } = useUser();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  console.log('uid', selectedUser?.uid);
+  const getTargetId = (target: ChatTarget) =>
+    target.isGroup ? target.id : target.uid;
+
+  const getConvId = (target: ChatTarget) =>
+    target.isGroup ? target.id : getConversationId(user!.uid, target.uid);
 
   useEffect(() => {
-    if (!user?.uid || !selectedUser?.uid) return;
-
-    const conversationId = getConversationId(user.uid, selectedUser.uid);
-    const unsub = listenMessages(conversationId, onMessagesUpdate);
-
+    if (!user?.uid || !selectedTarget) return;
+    const unsub = listenMessages(getConvId(selectedTarget), onMessagesUpdate);
     return () => unsub();
-  }, [user?.uid, selectedUser]);
+  }, [user?.uid, selectedTarget]);
 
-  const handleSendText = async () => {
-    if (!message.trim() || !user?.uid || !selectedUser?.uid) return;
+  const sendChatMessage = async (
+    type: 'text' | 'file',
+    extra: Partial<ChatMessage> = {}
+  ) => {
+    if (!user?.uid || !selectedTarget) return;
 
-    const conversationId = getConversationId(user.uid, selectedUser.uid);
-
-    await sendMessage(conversationId, {
+    const baseMsg: Omit<ChatMessage, 'id' | 'timestamp'> = {
       senderId: user.uid,
-      receiverId: selectedUser.uid,
-      text: message,
-      type: 'text',
+      isSeen: false,
+      type,
+      text: '',
       fileName: '',
       fileUrl: '',
-    });
+      ...(!selectedTarget.isGroup && {
+        receiverId: getTargetId(selectedTarget),
+      }),
+      ...(selectedTarget.isGroup && {
+        conversationId: getTargetId(selectedTarget),
+      }),
+      ...extra,
+    };
+
+    await sendMessage(getConvId(selectedTarget), baseMsg);
+  };
+
+  const handleSendText = async () => {
+    if (!message.trim()) return;
+    await sendChatMessage('text', { text: message });
     setMessage('');
   };
 
@@ -56,25 +77,14 @@ export const Chat = ({ selectedUser, onMessagesUpdate }: ChatProps) => {
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    if (!user?.uid || !selectedUser?.uid) return;
+    if (!e.target.files?.length) return;
 
     const file = e.target.files[0];
     const fileName = file.name;
 
     try {
       const fileUrl = await uploadImage(file);
-
-      const conversationId = getConversationId(user.uid, selectedUser.uid);
-
-      await sendMessage(conversationId, {
-        senderId: user.uid,
-        receiverId: selectedUser.uid,
-        text: '',
-        type: 'file',
-        fileName,
-        fileUrl,
-      });
+      await sendChatMessage('file', { fileName, fileUrl });
     } catch (err) {
       console.error('File upload/send error:', err);
     }
