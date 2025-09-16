@@ -39,7 +39,7 @@ export const Sidebar = ({
           >
             <FiUsers size={24} />
           </button>
-          <Avatar avatarUrl={user?.avatarUrl} />
+          <Avatar avatarUrl={user?.avatarUrl} isCurrentUser />
         </div>
       </div>
       <div className="sidebar-util">
