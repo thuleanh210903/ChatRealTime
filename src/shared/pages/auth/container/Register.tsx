@@ -41,14 +41,10 @@ const Register = () => {
 
   const onSubmit = async (data: IRegisterForm) => {
     try {
-      if (!avatarFile) {
-        toast.error('Please upload an avatar');
-        return;
-      }
       setIsLoading(true);
       const payload = {
         ...data,
-        avatarFile,
+        avatarFile: avatarFile ?? null,
       };
       await register(payload);
       toast.success('Register successfully');
@@ -63,14 +59,13 @@ const Register = () => {
       setIsLoading(false);
     }
   };
-
   return (
     <div className="page page-auth page-register">
       <div className="page-content">
         <h1 className="page-title">REGISTER</h1>
         <form className="page-form" onSubmit={handleSubmit(onSubmit)}>
           <UploadImage
-            defaultImage=""
+            defaultImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz5mDg6HE84WsyjscmLeJK7EibtmChgbvKbA&s"
             onChange={(file) => setAvatarFile(file)}
           />
           <Controller
